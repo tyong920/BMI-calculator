@@ -8,6 +8,8 @@ class BmiWindow(ttk.Frame):
     def __init__(self, master):
         super(BmiWindow, self).__init__(master)
         master.wm_title('BMI Calculator')
+        # Bind Return to calculate
+        master.bind('<Return>', self.calculate)
 
         # Create UI widgets
         # Lables
@@ -32,7 +34,7 @@ class BmiWindow(ttk.Frame):
         self.result_lable.grid(row=2, column=1, sticky=tk.SE, padx=10, pady=18)
         self.verdict_lable.grid(row=3, rowspan=2, columnspan=2, sticky=tk.SW, padx=14)
 
-    def calculate(self):
+    def calculate(self, event=None):
         bmi = bmiutils.bmi_calculate(self.weight_entry.get(), self.height_entry.get())
         verdict = bmiutils.bmi_verdict(bmi)
         self.result_lable.config(text='BMI: {0:.2f}'.format(bmi), foreground='red')
